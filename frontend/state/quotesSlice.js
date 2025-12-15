@@ -32,6 +32,23 @@ const initialState = {
 export const quotesSlice = createSlice({
 	name: 'quotes',
 	initialState,
+	reducers: {
+		toggleVisibility: (state, action) => {},
+		deleteQuote: (state, action) => {
+			debugger;
+		}, // { payload: quoteId, type: 'quotes/deleteQuote' };
+		editQuoteAuthenticity: (state, action) => {},
+		setHighlightedQuote: (state, action) => {},
+		createQuote: (state, action) => {},
+	},
 });
+
+export const {
+	toggleVisibility,
+	deleteQuote, // dispatch(deleteQuote(2))
+	editQuoteAuthenticity,
+	setHighlightedQuote,
+	createQuote,
+} = quotesSlice.actions;
 
 export default quotesSlice.reducer;
