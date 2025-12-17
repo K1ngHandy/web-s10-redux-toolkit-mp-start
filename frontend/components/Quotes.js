@@ -6,13 +6,16 @@ import {
 	deleteQuote,
 	editQuoteAuthenticity,
 	setHighlightedQuote,
-	createQuote,
 } from '../state/quotesSlice.js';
 
 export default function Quotes() {
 	const quotes = useSelector((st) => st.quotesState.quotes);
-	const displayAllQuotes = true; // ✨ `displayAllQuotes` must come from the Redux store
-	const highlightedQuote = 3; // ✨ `highlightedQuote` must come from the Redux store
+	const displayAllQuotes = useSelector(
+		(st) => st.quotesState.displayAllQuotes
+	); // ✨ `displayAllQuotes` must come from the Redux store
+	const highlightedQuote = useSelector(
+		(st) => st.quotesState.highlightedQuote
+	); // ✨ `highlightedQuote` must come from the Redux store
 	const dispatch = useDispatch();
 
 	return (
@@ -39,7 +42,6 @@ export default function Quotes() {
 										const actionToDispatch = deleteQuote(
 											qt.id
 										);
-										debugger;
 										dispatch(actionToDispatch);
 									}}
 								>
@@ -48,6 +50,7 @@ export default function Quotes() {
 								<button
 									onClick={() => {
 										/* ✨ dispatch an action */
+										dispatch(setHighlightedQuote(qt.id));
 									}}
 								>
 									HIGHLIGHT
@@ -55,6 +58,7 @@ export default function Quotes() {
 								<button
 									onClick={() => {
 										/* ✨ dispatch an action */
+										dispatch(editQuoteAuthenticity(qt.id));
 									}}
 								>
 									FAKE
@@ -66,9 +70,10 @@ export default function Quotes() {
 			</div>
 			{!!quotes?.length && (
 				<button
-					onClick={() => {
+					onClick={() =>
 						/* ✨ dispatch an action */
-					}}
+						dispatch(toggleVisibility())
+					}
 				>
 					{displayAllQuotes ? 'HIDE' : 'SHOW'} FAKE QUOTES
 				</button>
